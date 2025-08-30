@@ -1,73 +1,103 @@
-# Welcome to your Lovable project
+# Crisis Response Now
 
-## Project info
+A modern, GenZ-focused emergency assistance web app for real-time crisis management, resource sharing, and public-government collaboration.
 
-**URL**: https://lovable.dev/projects/397447c4-4464-4a70-bed8-be3559d31beb
+## Features
 
-## How can I edit this code?
+### 🚀 Public Portal
+- **Emergency Resources Dashboard:** Real-time availability of medical, food, water, shelter, electricity, ambulance, and hospital resources near you.
+- **Alerts & Updates:** Live alerts for medical emergencies, water distribution, power outages, and more.
+- **Local Requests:** See and connect with requests from people nearby for urgent needs.
+- **Request Help:** Submit your own emergency request with location, type, urgency, and description. Optionally upload verification images.
+- **Share Your Spare 💡:** Share resources (food, water, medicine, shelter, ambulance, etc.) with the community. Upload images for AI verification via `/detect` API. See verification status and reason.
+- **Shared by Locals:** Browse resources shared by others, including verification status and image preview.
+- **Emergency Contacts:** Quick access to emergency service numbers (Ambulance, Medical Helpline, Crisis Helpline).
+- **Modern, Accessible UI:** All sections use Tailwind CSS, gradients, and app color tokens for a beautiful, consistent look.
 
-There are several ways of editing your application.
+### 🤖 Emergency Chatbot
+- **Floating Chatbot Button:** Instantly open a modal chatbot for emergency FAQs and advice.
+- **Real-Time API Integration:** Chatbot connects to `/chat` API for dynamic, context-aware emergency answers.
+- **Loading/Error States:** User-friendly feedback while waiting for advice or if the API is unavailable.
+- **Session Support:** Each chat uses a session ID for continuity.
 
-**Use Lovable**
+### 🏛️ Government Portal (if enabled)
+- **Aggregated Public Requests:** View, filter, sort, and export requests from the public for review and action.
+- **Status Management:** Approve, reject, or mark requests as pending.
+- **CSV Export:** Download filtered requests for offline review.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/397447c4-4464-4a70-bed8-be3559d31beb) and start prompting.
+### 🛡️ Protected Routes
+- **Role-Based Access:** Government and public users see different features and dashboards.
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🧩 UI Components
+- **Reusable Design System:** Cards, buttons, badges, inputs, modals, accordions, tables, alerts, and more, all styled for accessibility and consistency.
+- **Animated Icons:** Lucide icons for visual clarity and engagement.
 
-**Use your preferred IDE**
+### 🖼️ Image Verification
+- **AI-Powered Verification:** Uploaded images for resource sharing are sent to `/detect` API for claim validation. Results shown to user and in shared list.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### ⚡ Tech Stack
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS
+- **Icons:** Lucide
+- **API Integration:** Axios for all backend calls
+- **Backend (API):** `/chat` for chatbot, `/detect` for image verification (local Flask server)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## How to Run
 
-Follow these steps:
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+2. **Start the frontend:**
+   ```bash
+   npm run dev
+   ```
+3. **Start the backend (Flask):**
+   ```bash
+   # In backend folder
+   flask run
+   ```
+4. **Open in browser:**
+   - Frontend: [http://localhost:5173](http://localhost:5173)
+   - Backend API: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## API Endpoints
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- `POST /chat` — Emergency chatbot (expects `{ session_id, message }`)
+- `POST /detect` — Image verification for resource sharing (expects image and claim)
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Accessibility & Design
+- All UI elements are keyboard accessible and use high-contrast colors.
+- Responsive layouts for mobile and desktop.
+- Modern gradients, shadows, and animated feedback.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+## Folder Structure
+```
+crisis-response-now-1/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   └── ui/
+│   ├── hooks/
+│   ├── lib/
+│   ├── pages/
+│   │   ├── Public.tsx
+│   │   ├── Index.tsx
+│   │   └── ...
+│   └── App.tsx
+├── package.json
+├── tailwind.config.ts
+├── vite.config.ts
+└── README.md
 ```
 
-**Edit a file directly in GitHub**
+## Credits
+- UI/UX: Tailwind CSS, Lucide Icons
+- API: Flask (Python)
+- Design & Development: Your Team
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## License
+MIT
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/397447c4-4464-4a70-bed8-be3559d31beb) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+---
+For feedback, issues, or feature requests, open an issue or contact the maintainers.
