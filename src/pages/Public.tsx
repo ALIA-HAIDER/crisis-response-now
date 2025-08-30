@@ -438,7 +438,7 @@ const Public = () => {
       >
         <MessageCircle className="h-6 w-6" />
       </button>
-      Emergency Chatbot Modal
+     
       {showChatbot && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="bg-card/90 rounded-2xl shadow-2xl max-w-md w-full p-6 relative">
