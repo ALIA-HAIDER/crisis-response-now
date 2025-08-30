@@ -30,6 +30,7 @@ import {
   MessageCircle
 } from "lucide-react";
 import { isGovernment } from "@/lib/auth";
+import axios from "axios";
 
 const Public = () => {
   const [helpRequest, setHelpRequest] = useState("");
@@ -58,10 +59,25 @@ const Public = () => {
   const [connectMsg, setConnectMsg] = useState("");
 
   // Handle Share Resource
-  const handleShareResource = () => {
+  const handleShareResource = async () => {
     if (!shareType || !shareLocation || !shareDesc || !shareContact) {
       setShareMsg("Please fill all fields to share a resource.");
       return;
+    }
+    let apiResult = null;
+    if (sharePicture) {
+      const formData = new FormData();
+      formData.append("images", sharePicture);
+      formData.append("claim", shareDesc || shareType);
+      try {
+        const res = await axios.post("http://127.0.0.1:5000/detect", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        apiResult = res.data;
+      } catch (err) {
+        setShareMsg("Image verification failed. Please try again.");
+        return;
+      }
     }
     // Optionally handle picture upload (for demo, just store file name)
     const newResource = {
@@ -71,16 +87,17 @@ const Public = () => {
       location: shareLocation,
       contact: shareContact,
       time: "just now",
-      picture: sharePicture ? sharePicture.name : null
+      picture: sharePicture ? sharePicture.name : null,
+      verification: apiResult || null
     };
     setSharedResources(prev => [newResource, ...prev]);
-    setShareMsg("Resource shared successfully!");
+    setShareMsg(apiResult ? (apiResult.claim_correct ? "Resource verified and shared!" : `Verification failed: ${apiResult.reason}`) : "Resource shared successfully!");
     setShareType("Food");
     setShareLocation("");
     setShareDesc("");
     setShareContact("");
     setSharePicture(null);
-    setTimeout(() => setShareMsg(""), 3000);
+    setTimeout(() => setShareMsg(""), 4000);
   };
 
   // Handle Connect
@@ -378,29 +395,37 @@ const Public = () => {
   const [chatInput, setChatInput] = useState("");
   const [chatHistory, setChatHistory] = useState<Array<{ user: string; bot: string }>>([]);
   const [showChatbot, setShowChatbot] = useState(false);
+  const [chatLoading, setChatLoading] = useState(false);
+  const [chatError, setChatError] = useState("");
+  const sessionId = "1"; // You can make this dynamic if needed
 
-  const faqAnswers: Record<string, string> = {
-    "how to purify water":
-      "To purify water, boil it for at least 1 minute, use water purification tablets, or filter through a clean cloth and then disinfect with household bleach (2 drops per liter, let stand 30 min).",
-    "what to do in heart attack":
-      "If you suspect a heart attack: Call emergency services immediately, keep the person calm, loosen tight clothing, help them sit and rest, and if available, give aspirin (unless allergic). Do not let them eat or drink. Monitor breathing and pulse.",
-    "how to treat minor burns":
-      "Cool the burn under running water for 10-20 minutes, cover with a clean non-stick bandage, do not apply ice or butter. Seek medical help if severe.",
-    "how to stop bleeding":
-      "Apply firm pressure with a clean cloth, elevate the wound if possible, and seek medical help if bleeding does not stop after 10 minutes.",
-    "how to prevent infection":
-      "Clean wounds with clean water, cover with sterile bandage, and avoid touching with dirty hands. Seek medical help for deep wounds.",
-    // ...add more FAQs as needed
-  };
-
-  const handleChatSend = () => {
+  const handleChatSend = async () => {
     if (!chatInput.trim()) return;
-    const userQ = chatInput.trim().toLowerCase();
-    let botA =
-      faqAnswers[userQ] ||
-      "Sorry, I don't have an answer for that. Please contact emergency services or ask another question.";
-    setChatHistory((prev) => [...prev, { user: chatInput, bot: botA }]);
+    setChatLoading(true);
+    setChatError("");
+    const userQ = chatInput.trim();
+    setChatHistory((prev) => [...prev, { user: userQ, bot: "..." }]);
     setChatInput("");
+    try {
+      const res = await axios.post("http://127.0.0.1:5000/chat", {
+        session_id: sessionId,
+        message: userQ,
+      });
+      const botA = res.data.response || "Sorry, no answer received.";
+      setChatHistory((prev) => {
+        // Replace last bot message ("...") with real answer
+        const last = prev.pop();
+        return [...prev, { user: last.user, bot: botA }];
+      });
+    } catch (err) {
+      setChatHistory((prev) => {
+        const last = prev.pop();
+        return [...prev, { user: last.user, bot: "Error: Could not get response. Please try again." }];
+      });
+      setChatError("Failed to get response from emergency advice API.");
+    } finally {
+      setChatLoading(false);
+    }
   };
 
   return (
@@ -434,24 +459,27 @@ const Public = () => {
               <div className="space-y-2">
                 <div className="h-40 overflow-y-auto bg-muted rounded-lg p-3 text-sm text-muted-foreground">
                   {chatHistory.length === 0 && (
-                    <div className="text-muted-foreground">Ask questions like "How to purify water?" or "What to do in heart attack?"</div>
+                    <div className="text-muted-foreground">Ask any emergency question, e.g. "I am having a bleed in my right arm"</div>
                   )}
                   {chatHistory.map((msg, idx) => (
                     <div key={idx} className="mb-2">
                       <div className="font-semibold text-primary">You: <span className="font-normal text-foreground">{msg.user}</span></div>
-                      <div className="font-semibold text-success">Bot: <span className="font-normal text-foreground">{msg.bot}</span></div>
+                      <div className="font-semibold text-success">Bot: <span className="font-normal text-foreground whitespace-pre-line">{msg.bot}</span></div>
                     </div>
                   ))}
+                  {chatLoading && <div className="text-xs text-muted-foreground">Getting advice...</div>}
+                  {chatError && <div className="text-xs text-destructive">{chatError}</div>}
                 </div>
                 <div className="flex gap-2 mt-2">
                   <Input
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
-                    placeholder="Type your question..."
+                    placeholder="Type your emergency question..."
                     className="bg-muted text-foreground border-none"
                     onKeyDown={(e) => { if (e.key === 'Enter') handleChatSend(); }}
+                    disabled={chatLoading}
                   />
-                  <Button onClick={handleChatSend} className="bg-primary text-primary-foreground font-bold">Send</Button>
+                  <Button onClick={handleChatSend} className="bg-primary text-primary-foreground font-bold" disabled={chatLoading}>Send</Button>
                 </div>
               </div>
             </CardContent>
@@ -576,7 +604,7 @@ const Public = () => {
                 <div className="space-y-4">
                   <>
                     {recentAlerts.map((alert, index) => (
-                      <div key={index} className={`p-5 border-l-4 rounded-xl ${getPriorityColor(alert.priority)} shadow-[var(--shadow-emergency)]`}>
+                      <div key={index} className={`p-5 border-l-4 rounded-xl ${getPriorityColor(alert.priority)} shadow-[var(--shadow-emergency]`}>
                         <div className="flex items-start space-x-4">
                           <div className="p-3 rounded-xl bg-gradient-emergency">
                             <alert.icon className="h-5 w-5 text-destructive" />
