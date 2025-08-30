@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Government from "./pages/Government";
 import Public from "./pages/Public";
 import NotFound from "./pages/NotFound";
+import GovernmentLogin from "@/pages/GovernmentLogin";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/government" element={<Government />} />
           <Route path="/public" element={<Public />} />
+          <Route path="/gov/login" element={<GovernmentLogin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

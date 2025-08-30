@@ -25,6 +25,15 @@ const Index = () => {
             <div className="flex items-center space-x-2">
               <div className="h-2 w-2 bg-success rounded-full animate-pulse"></div>
               <span className="text-sm text-muted-foreground">System Active</span>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="hidden md:inline-flex text-muted-foreground hover:text-primary"
+                onClick={() => navigate("/gov/login")}
+              >
+                <Shield className="h-4 w-4 mr-1" />
+                Gov Login
+              </Button>
             </div>
           </div>
         </div>
@@ -56,88 +65,77 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Mode Selection */}
+      {/* Public Access Only */}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold mb-4 text-foreground">Choose Your Access Mode</h3>
-            <p className="text-muted-foreground">Select the appropriate interface for your role and responsibilities</p>
+            <h3 className="text-3xl font-bold mb-4 text-foreground">Get Help Now</h3>
+            <p className="text-muted-foreground">
+              Public emergency assistance portal. Government access is secured and not listed here.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Government Mode */}
-            <Card className="group hover:shadow-elegant transition-all duration-300 cursor-pointer border-2 hover:border-primary/20" 
-                  onClick={() => navigate('/government')}>
-              <CardContent className="p-8">
-                <div className="text-center space-y-6">
-                  <div className="mx-auto w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Shield className="h-10 w-10 text-primary-foreground" />
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-2xl font-bold mb-3 text-foreground">Government Mode</h4>
-                    <p className="text-muted-foreground mb-6">
-                      Comprehensive monitoring and management dashboard for government officials and emergency services
-                    </p>
-                  </div>
+          <Card
+            className="group hover:shadow-elegant transition-all duration-300 cursor-pointer border-2 hover:border-primary/30 bg-card/70 backdrop-blur"
+            onClick={() => navigate('/public')}
+          >
+            <CardContent className="p-10">
+              <div className="text-center space-y-8">
+                <div className="mx-auto w-24 h-24 bg-gradient-primary rounded-2xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-[var(--shadow-elegant)]">
+                  <Users className="h-12 w-12 text-primary-foreground" />
+                </div>
 
-                  <div className="grid grid-cols-3 gap-4 text-sm">
-                    <div className="flex flex-col items-center space-y-2">
-                      <MapPin className="h-5 w-5 text-primary" />
-                      <span className="text-muted-foreground">International</span>
-                    </div>
-                    <div className="flex flex-col items-center space-y-2">
-                      <Activity className="h-5 w-5 text-primary" />
-                      <span className="text-muted-foreground">National</span>
-                    </div>
-                    <div className="flex flex-col items-center space-y-2">
-                      <AlertTriangle className="h-5 w-5 text-primary" />
-                      <span className="text-muted-foreground">Local</span>
-                    </div>
-                  </div>
+                <div>
+                  <h4 className="text-3xl font-extrabold mb-3 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
+                    Public Emergency Portal
+                  </h4>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                    Request help, find nearby resources, view alerts, and share your location for faster response.
+                  </p>
+                </div>
 
-                  <Button className="w-full bg-gradient-primary hover:shadow-elegant transition-all duration-300">
-                    Access Government Portal
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <Button className="w-full bg-gradient-primary" onClick={() => navigate('/public')}>
+                    Report Emergency
+                  </Button>
+                  <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground" onClick={() => navigate('/public')}>
+                    Check Resources
+                  </Button>
+                  <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground" onClick={() => navigate('/public')}>
+                    Share Location
                   </Button>
                 </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Futuristic quick stats */}
+          <div className="grid md:grid-cols-3 gap-6 mt-10">
+            <Card className="p-0 bg-card/60 backdrop-blur border-primary/20">
+              <CardContent className="p-6 flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Live Resources</p>
+                  <p className="text-2xl font-bold text-primary">24/7</p>
+                </div>
+                <Heart className="h-8 w-8 text-primary" />
               </CardContent>
             </Card>
-
-            {/* Public Mode */}
-            <Card className="group hover:shadow-card transition-all duration-300 cursor-pointer border-2 hover:border-success/20" 
-                  onClick={() => navigate('/public')}>
-              <CardContent className="p-8">
-                <div className="text-center space-y-6">
-                  <div className="mx-auto w-20 h-20 bg-gradient-success rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Users className="h-10 w-10 text-success-foreground" />
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-2xl font-bold mb-3 text-foreground">Public Mode</h4>
-                    <p className="text-muted-foreground mb-6">
-                      Citizen portal for emergency assistance, resource requests, and real-time availability updates
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-4 text-sm">
-                    <div className="flex flex-col items-center space-y-2">
-                      <Heart className="h-5 w-5 text-success" />
-                      <span className="text-muted-foreground">Medical</span>
-                    </div>
-                    <div className="flex flex-col items-center space-y-2">
-                      <MapPin className="h-5 w-5 text-success" />
-                      <span className="text-muted-foreground">Resources</span>
-                    </div>
-                    <div className="flex flex-col items-center space-y-2">
-                      <AlertTriangle className="h-5 w-5 text-success" />
-                      <span className="text-muted-foreground">Alerts</span>
-                    </div>
-                  </div>
-
-                  <Button variant="outline" className="w-full border-success text-success hover:bg-success hover:text-success-foreground transition-all duration-300">
-                    Access Public Portal
-                  </Button>
+            <Card className="p-0 bg-card/60 backdrop-blur border-success/20">
+              <CardContent className="p-6 flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Nearby Shelters</p>
+                  <p className="text-2xl font-bold text-success">15+</p>
                 </div>
+                <MapPin className="h-8 w-8 text-success" />
+              </CardContent>
+            </Card>
+            <Card className="p-0 bg-card/60 backdrop-blur border-warning/20">
+              <CardContent className="p-6 flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Active Alerts</p>
+                  <p className="text-2xl font-bold text-warning">3</p>
+                </div>
+                <AlertTriangle className="h-8 w-8 text-warning" />
               </CardContent>
             </Card>
           </div>
