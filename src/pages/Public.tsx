@@ -292,12 +292,12 @@ const Public = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'available': return 'bg-success text-success-foreground';
-      case 'limited': return 'bg-warning text-warning-foreground';
-      case 'unavailable': return 'bg-destructive text-destructive-foreground';
-      case 'approved': return 'bg-success text-success-foreground';
-      case 'pending': return 'bg-warning text-warning-foreground';
-      case 'rejected': return 'bg-destructive text-destructive-foreground';
+      case 'available': return 'bg-success/20 text-success border-success/30';
+      case 'limited': return 'bg-warning/20 text-warning border-warning/30';
+      case 'unavailable': return 'bg-destructive/20 text-destructive border-destructive/30';
+      case 'approved': return 'bg-success/20 text-success border-success/30';
+      case 'pending': return 'bg-warning/20 text-warning border-warning/30';
+      case 'rejected': return 'bg-destructive/20 text-destructive border-destructive/30';
       default: return 'bg-muted text-muted-foreground';
     }
   };
@@ -313,10 +313,10 @@ const Public = () => {
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'high': return 'border-l-destructive bg-destructive/5';
-      case 'medium': return 'border-l-warning bg-warning/5';
-      case 'low': return 'border-l-success bg-success/5';
-      default: return 'border-l-muted';
+      case 'high': return 'border-l-destructive bg-destructive/10';
+      case 'medium': return 'border-l-warning bg-warning/10';
+      case 'low': return 'border-l-success bg-success/10';
+      default: return 'border-l-muted bg-muted/10';
     }
   };
 
@@ -384,34 +384,34 @@ const Public = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1e1e2f] via-[#2d2d4a] to-[#3c3c5e] text-white">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b bg-gradient-to-r from-[#6a5af9]/80 to-[#f857a6]/80 backdrop-blur-lg shadow-lg">
+      <header className="border-b bg-card/50 backdrop-blur-lg shadow-lg">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Button variant="outline" size="sm" onClick={() => navigate('/')} className="border-white/30 text-white hover:bg-[#6a5af9]/20">
+              <Button variant="outline" size="sm" onClick={() => navigate('/')}>
                 <ChevronLeft className="h-4 w-4 mr-2" />
                 Back
               </Button>
               <div className="flex items-center space-x-3">
-                <div className="h-10 w-10 bg-gradient-to-br from-[#6a5af9] to-[#f857a6] rounded-xl flex items-center justify-center shadow-lg">
-                  <Users className="h-6 w-6 text-white" />
+                <div className="h-10 w-10 bg-primary rounded-xl flex items-center justify-center shadow-lg">
+                  <Users className="h-6 w-6 text-primary-foreground" />
                 </div>
                 <div>
-                  <h1 className="text-3xl font-extrabold text-white tracking-tight">Public Portal 🚀</h1>
-                  <p className="text-base text-white/70 font-medium">GenZ Emergency Assistance Hub</p>
+                  <h1 className="text-3xl font-extrabold tracking-tight">Public Portal 🚀</h1>
+                  <p className="text-base text-muted-foreground font-medium">GenZ Emergency Assistance Hub</p>
                 </div>
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Button variant="outline" size="sm" className="border-white/30 text-white hover:bg-[#f857a6]/20">
+              <Button variant="outline" size="sm">
                 <MapPin className="h-4 w-4 mr-2" />
                 Share Location
               </Button>
               <div className="flex items-center space-x-2">
-                <div className="h-2 w-2 bg-gradient-to-r from-[#6a5af9] to-[#f857a6] rounded-full animate-pulse"></div>
-                <span className="text-sm text-white/70">Connected</span>
+                <div className="h-2 w-2 bg-primary rounded-full animate-pulse"></div>
+                <span className="text-sm text-muted-foreground">Connected</span>
               </div>
             </div>
           </div>
@@ -422,28 +422,28 @@ const Public = () => {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Emergency Resources Dashboard */}
           <div className="lg:col-span-2 space-y-8">
-            <Card className="bg-gradient-to-br from-[#23234a]/80 to-[#3c3c5e]/70 border-none shadow-xl rounded-2xl">
+            <Card>
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2 text-white text-2xl font-bold">
-                  <Activity className="h-6 w-6 text-[#f857a6]" />
+                <CardTitle className="flex items-center space-x-2 text-2xl font-bold">
+                  <Activity className="h-6 w-6 text-primary" />
                   <span>Resources Near You ✨</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-2 gap-6">
                   {emergencyResources.map((resource, index) => (
-                    <div key={index} className="flex items-center justify-between p-5 rounded-xl bg-gradient-to-r from-[#23234a]/80 to-[#6a5af9]/30 shadow-lg hover:scale-[1.03] transition-transform duration-200">
+                    <div key={index} className="flex items-center justify-between p-5 rounded-xl bg-card shadow-lg hover:scale-[1.03] transition-transform duration-200">
                       <div className="flex items-center space-x-4">
-                        <div className={`p-3 rounded-xl bg-gradient-to-br from-[#f857a6] to-[#6a5af9] shadow-lg`}>
-                          <resource.icon className="h-6 w-6 text-white" />
+                        <div className="p-3 rounded-xl bg-primary/20">
+                          <resource.icon className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                          <div className="font-bold text-lg text-white">{resource.type}</div>
-                          <div className="text-sm text-white/70">{resource.location}</div>
+                          <div className="font-bold text-lg">{resource.type}</div>
+                          <div className="text-sm text-muted-foreground">{resource.location}</div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-base font-bold text-white">{resource.count}</div>
+                        <div className="text-base font-bold">{resource.count}</div>
                         <Badge className={getStatusColor(resource.status) + " rounded-full px-3 py-1 text-base"}>
                           {resource.status}
                         </Badge>
@@ -455,7 +455,7 @@ const Public = () => {
             </Card>
 
             {/* Recent Alerts */}
-            <Card className="bg-gradient-to-br from-[#23234a]/80 to-[#f857a6]/40 border-none shadow-xl rounded-2xl">
+            <Card className="bg-card/80 border-primary/20 shadow-lg rounded-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2 text-white text-2xl font-bold">
                   <AlertTriangle className="h-6 w-6 text-[#f857a6]" />
@@ -485,7 +485,7 @@ const Public = () => {
             </Card>
 
             {/* Shared Resources Section */}
-            <Card className="bg-gradient-to-br from-[#23234a]/80 to-[#6a5af9]/40 border-none shadow-xl rounded-2xl">
+            <Card className="bg-card/80 border-primary/20 shadow-lg rounded-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2 text-white text-2xl font-bold">
                   <Upload className="h-6 w-6 text-[#6a5af9]" />
@@ -499,7 +499,7 @@ const Public = () => {
                     <select
                       value={shareType}
                       onChange={e => setShareType(e.target.value)}
-                      className="w-full h-10 px-3 rounded-xl border-none bg-[#23234a]/80 text-white text-base focus:ring-2 focus:ring-[#6a5af9]"
+                      className="w-full h-10 px-3 rounded-xl border-none bg-background/50 text-white text-base focus:ring-2 focus:ring-[#6a5af9]"
                     >
                       <option>Food</option>
                       <option>Water</option>
@@ -511,7 +511,7 @@ const Public = () => {
                   </div>
                   <div>
                     <label className="text-sm font-semibold text-white mb-2 block">Location</label>
-                    <Input placeholder="Where is it available?" value={shareLocation} onChange={e => setShareLocation(e.target.value)} className="rounded-xl bg-[#23234a]/80 text-white border-none" />
+                    <Input placeholder="Where is it available?" value={shareLocation} onChange={e => setShareLocation(e.target.value)} className="rounded-xl bg-background/50 text-white border-none" />
                   </div>
                 </div>
                 <div>
@@ -521,14 +521,14 @@ const Public = () => {
                     value={shareDesc}
                     onChange={e => setShareDesc(e.target.value)}
                     rows={3}
-                    className="rounded-xl bg-[#23234a]/80 text-white border-none"
+                    className="rounded-xl bg-background/50 text-white border-none"
                   />
                 </div>
                 <div>
                   <label className="text-sm font-semibold text-white mb-2 block">Contact Number</label>
-                  <Input placeholder="Your phone or WhatsApp" value={shareContact} onChange={e => setShareContact(e.target.value)} className="rounded-xl bg-[#23234a]/80 text-white border-none" />
+                  <Input placeholder="Your phone or WhatsApp" value={shareContact} onChange={e => setShareContact(e.target.value)} className="rounded-xl bg-background/50 text-white border-none" />
                 </div>
-                <Button className="w-full bg-gradient-to-r from-[#6a5af9] to-[#f857a6] text-white font-bold rounded-xl shadow-lg hover:scale-105 transition-transform">
+                <Button className="w-full bg-primary text-primary-foreground font-bold rounded-xl shadow-lg hover:scale-105 transition-transform">
                   <Upload className="h-5 w-5 mr-2" />
                   Share Resource
                 </Button>
@@ -537,7 +537,7 @@ const Public = () => {
             </Card>
 
             {/* Local Requests Section */}
-            <Card className="bg-gradient-to-br from-[#23234a]/80 to-[#f857a6]/30 border-none shadow-xl rounded-2xl">
+            <Card className="bg-card/80 border-primary/20 shadow-lg rounded-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2 text-white text-2xl font-bold">
                   <Users className="h-6 w-6 text-[#6a5af9]" />
@@ -549,7 +549,7 @@ const Public = () => {
                   {publicRequests.map(r => {
                     const Icon = typeIcon(r.reqType);
                     return (
-                      <div key={r.id} className="p-4 rounded-xl bg-gradient-to-r from-[#23234a]/80 to-[#6a5af9]/30 shadow-md flex items-center justify-between hover:scale-[1.02] transition-transform">
+                      <div key={r.id} className="p-4 rounded-xl bg-card/90 shadow-md flex items-center justify-between hover:scale-[1.02] transition-transform">
                         <div className="flex items-center gap-4">
                           <div className="p-3 rounded-xl bg-gradient-to-br from-[#f857a6] to-[#6a5af9]">
                             <Icon className="h-5 w-5 text-white" />
@@ -588,7 +588,7 @@ const Public = () => {
             </Card>
 
             {/* Shared Resources List */}
-            <Card className="bg-gradient-to-br from-[#23234a]/80 to-[#6a5af9]/30 border-none shadow-xl rounded-2xl">
+            <Card className="bg-card/80 border-primary/20 shadow-lg rounded-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2 text-white text-2xl font-bold">
                   <Activity className="h-6 w-6 text-[#f857a6]" />
@@ -598,7 +598,7 @@ const Public = () => {
               <CardContent>
                 <div className="space-y-4">
                   {sharedResources.map(res => (
-                    <div key={res.id} className="p-4 rounded-xl bg-gradient-to-r from-[#23234a]/80 to-[#6a5af9]/30 shadow-md flex items-center justify-between">
+                    <div key={res.id} className="p-4 rounded-xl bg-card/90 shadow-md flex items-center justify-between">
                       <div>
                         <div className="font-bold text-lg text-white">{res.type}</div>
                         <div className="text-xs text-white/70">{res.description}</div>
@@ -619,10 +619,10 @@ const Public = () => {
           {/* Help Request & Profile Section */}
           <div className="space-y-8">
             {/* Request Help Form */}
-            <Card className="bg-gradient-to-br from-[#23234a]/80 to-[#6a5af9]/40 border-none shadow-xl rounded-2xl">
+            <Card>
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2 text-white text-2xl font-bold">
-                  <Send className="h-6 w-6 text-[#f857a6]" />
+                <CardTitle className="flex items-center space-x-2 text-2xl font-bold">
+                  <Send className="h-6 w-6 text-primary" />
                   <span>Request Help 🆘</span>
                 </CardTitle>
               </CardHeader>
@@ -630,14 +630,14 @@ const Public = () => {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-semibold text-white mb-2 block">Your Location</label>
-                    <Input placeholder="Enter your current location" value={location} onChange={(e) => setLocation(e.target.value)} className="rounded-xl bg-[#23234a]/80 text-white border-none" />
+                    <Input placeholder="Enter your current location" value={location} onChange={(e) => setLocation(e.target.value)} className="rounded-xl bg-background/50 text-white border-none" />
                   </div>
                   <div>
                     <label className="text-sm font-semibold text-white mb-2 block">Requirement Type</label>
                     <select
                       value={newReqType}
                       onChange={(e) => setNewReqType(e.target.value as ReqType)}
-                      className="w-full h-10 px-3 rounded-xl border-none bg-[#23234a]/80 text-white text-base focus:ring-2 focus:ring-[#f857a6]"
+                      className="w-full h-10 px-3 rounded-xl border-none bg-background/50 text-white text-base focus:ring-2 focus:ring-[#f857a6]"
                     >
                       <option value="medical">Medical</option>
                       <option value="ambulance">Ambulance</option>
@@ -656,7 +656,7 @@ const Public = () => {
                     value={helpRequest}
                     onChange={(e) => setHelpRequest(e.target.value)}
                     rows={4}
-                    className="rounded-xl bg-[#23234a]/80 text-white border-none"
+                    className="rounded-xl bg-background/50 text-white border-none"
                   />
                 </div>
 
@@ -666,7 +666,7 @@ const Public = () => {
                     <select
                       value={newUrgency}
                       onChange={(e) => setNewUrgency(e.target.value as Urgency)}
-                      className="w-full h-10 px-3 rounded-xl border-none bg-[#23234a]/80 text-white text-base focus:ring-2 focus:ring-[#f857a6]"
+                      className="w-full h-10 px-3 rounded-xl border-none bg-background/50 text-white text-base focus:ring-2 focus:ring-[#f857a6]"
                     >
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
@@ -686,7 +686,7 @@ const Public = () => {
                   </div>
                 </div>
 
-                <Button className="w-full bg-gradient-to-r from-[#f857a6] to-[#6a5af9] text-white font-bold rounded-xl shadow-lg hover:scale-105 transition-transform" onClick={submitPublicRequest}>
+                <Button className="w-full bg-primary text-primary-foreground font-bold rounded-xl shadow-lg hover:scale-105 transition-transform" onClick={submitPublicRequest}>
                   <Send className="h-5 w-5 mr-2" />
                   Submit Request
                 </Button>
@@ -694,7 +694,7 @@ const Public = () => {
             </Card>
 
             {/* My Requests */}
-            <Card className="bg-gradient-to-br from-[#23234a]/80 to-[#f857a6]/30 border-none shadow-xl rounded-2xl">
+            <Card className="bg-card/80 border-primary/20 shadow-lg rounded-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2 text-white text-2xl font-bold">
                   <Clock className="h-6 w-6 text-[#6a5af9]" />
@@ -704,7 +704,7 @@ const Public = () => {
               <CardContent>
                 <div className="space-y-4">
                   {myRequests.map((request, index) => (
-                    <div key={request.id} className="p-4 rounded-xl bg-gradient-to-r from-[#23234a]/80 to-[#6a5af9]/30 shadow-md">
+                    <div key={request.id} className="p-4 rounded-xl bg-card/90 shadow-md">
                       <div className="flex items-center justify-between mb-2">
                         <div className="font-bold text-lg text-white">#{request.id}</div>
                         <Badge className={getStatusColor(request.status) + " rounded-full px-3 py-1 text-base"}>
@@ -722,7 +722,7 @@ const Public = () => {
             </Card>
 
             {/* Emergency Contacts */}
-            <Card className="bg-gradient-to-br from-[#23234a]/80 to-[#6a5af9]/40 border-none shadow-xl rounded-2xl">
+            <Card className="bg-card/80 border-primary/20 shadow-lg rounded-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2 text-white text-2xl font-bold">
                   <Heart className="h-6 w-6 text-[#f857a6]" />
