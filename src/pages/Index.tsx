@@ -14,12 +14,12 @@ const Index = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="h-10 w-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <Shield className="h-6 w-6 text-primary-foreground" />
+              <div className="h-12 w-12 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-[var(--shadow-elegant)] animate-bounce">
+                <Shield className="h-7 w-7 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-foreground">Capsule</h1>
-                <p className="text-sm text-muted-foreground">Crisis Response Platform</p>
+                <h1 className="text-3xl font-extrabold text-foreground tracking-tight">Capsule</h1>
+                <p className="text-base text-muted-foreground font-medium">Crisis Response Platform</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
@@ -28,7 +28,7 @@ const Index = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                className="hidden md:inline-flex text-muted-foreground hover:text-primary"
+                className="hidden md:inline-flex text-muted-foreground hover:text-primary border border-primary/30"
                 onClick={() => navigate("/gov/login")}
               >
                 <Shield className="h-4 w-4 mr-1" />
@@ -45,14 +45,13 @@ const Index = () => {
           <img
             src={heroImage}
             alt="Crisis Response Center"
-            className="w-full h-full object-cover opacity-10"
+            className="w-full h-full object-cover opacity-10 scale-105 blur-sm"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/90 to-background/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-background/80"></div>
         </div>
-        
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center animate-slide-up">
-            <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
+            <h2 className="text-6xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent drop-shadow-lg">
               Emergency Response
               <br />
               Command Center
@@ -61,6 +60,9 @@ const Index = () => {
               Real-time crisis management and emergency response coordination for governments and citizens. 
               Monitor resources, track emergencies, and coordinate relief efforts.
             </p>
+            <Button className="bg-gradient-primary text-primary-foreground font-bold px-8 py-4 rounded-xl shadow-lg hover:scale-105 transition-transform text-lg" onClick={() => navigate('/public')}>
+              Get Help Now
+            </Button>
           </div>
         </div>
       </section>
@@ -69,8 +71,8 @@ const Index = () => {
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold mb-4 text-foreground">Get Help Now</h3>
-            <p className="text-muted-foreground">
+            <h3 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">Get Help Now</h3>
+            <p className="text-lg text-muted-foreground">
               Public emergency assistance portal. Government access is secured and not listed here.
             </p>
           </div>
@@ -81,27 +83,27 @@ const Index = () => {
           >
             <CardContent className="p-10">
               <div className="text-center space-y-8">
-                <div className="mx-auto w-24 h-24 bg-gradient-primary rounded-2xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-[var(--shadow-elegant)]">
-                  <Users className="h-12 w-12 text-primary-foreground" />
+                <div className="mx-auto w-28 h-28 bg-gradient-primary rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-[var(--shadow-elegant)]">
+                  <Users className="h-14 w-14 text-primary-foreground animate-pulse" />
                 </div>
 
                 <div>
-                  <h4 className="text-3xl font-extrabold mb-3 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
+                  <h4 className="text-4xl font-extrabold mb-3 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
                     Public Emergency Portal
                   </h4>
-                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                     Request help, find nearby resources, view alerts, and share your location for faster response.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  <Button className="w-full bg-gradient-primary" onClick={() => navigate('/public')}>
+                  <Button className="w-full bg-gradient-primary text-primary-foreground font-bold text-lg" onClick={() => navigate('/public')}>
                     Report Emergency
                   </Button>
-                  <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground" onClick={() => navigate('/public')}>
+                  <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold text-lg" onClick={() => navigate('/public')}>
                     Check Resources
                   </Button>
-                  <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground" onClick={() => navigate('/public')}>
+                  <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold text-lg" onClick={() => navigate('/public')}>
                     Share Location
                   </Button>
                 </div>
@@ -111,31 +113,31 @@ const Index = () => {
 
           {/* Futuristic quick stats */}
           <div className="grid md:grid-cols-3 gap-6 mt-10">
-            <Card className="p-0 bg-card/60 backdrop-blur border-primary/20">
+            <Card className="p-0 bg-card/60 backdrop-blur border-primary/20 hover:scale-105 transition-transform">
               <CardContent className="p-6 flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Live Resources</p>
                   <p className="text-2xl font-bold text-primary">24/7</p>
                 </div>
-                <Heart className="h-8 w-8 text-primary" />
+                <Heart className="h-8 w-8 text-primary animate-pulse" />
               </CardContent>
             </Card>
-            <Card className="p-0 bg-card/60 backdrop-blur border-success/20">
+            <Card className="p-0 bg-card/60 backdrop-blur border-success/20 hover:scale-105 transition-transform">
               <CardContent className="p-6 flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Nearby Shelters</p>
                   <p className="text-2xl font-bold text-success">15+</p>
                 </div>
-                <MapPin className="h-8 w-8 text-success" />
+                <MapPin className="h-8 w-8 text-success animate-bounce" />
               </CardContent>
             </Card>
-            <Card className="p-0 bg-card/60 backdrop-blur border-warning/20">
+            <Card className="p-0 bg-card/60 backdrop-blur border-warning/20 hover:scale-105 transition-transform">
               <CardContent className="p-6 flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Active Alerts</p>
                   <p className="text-2xl font-bold text-warning">3</p>
                 </div>
-                <AlertTriangle className="h-8 w-8 text-warning" />
+                <AlertTriangle className="h-8 w-8 text-warning animate-pulse" />
               </CardContent>
             </Card>
           </div>
@@ -151,13 +153,12 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Heart, label: "Medical", status: "available", count: "24/7" },
+            {[{ icon: Heart, label: "Medical", status: "available", count: "24/7" },
               { icon: MapPin, label: "Shelter", status: "limited", count: "15 Units" },
               { icon: Activity, label: "Food Supply", status: "stable", count: "Adequate" },
               { icon: AlertTriangle, label: "Emergency", status: "active", count: "3 Alerts" }
             ].map((item, index) => (
-              <Card key={index} className="text-center p-6 hover:shadow-card transition-all duration-300">
+              <Card key={index} className="text-center p-6 hover:shadow-card transition-all duration-300 hover:scale-105">
                 <div className={`mx-auto w-12 h-12 rounded-full flex items-center justify-center mb-4 ${
                   item.status === 'available' ? 'bg-success/10 text-success' :
                   item.status === 'limited' ? 'bg-warning/10 text-warning' :
